@@ -12,7 +12,7 @@
 #include <array>
 #include <sys/time.h>
 //#ifdef _OMP
-#include <omp.h>
+//#include <omp.h>
 //#endif
 #include "iS3D.h"
 #include "readindata.h"
@@ -154,7 +154,7 @@ EmissionFunctionArray::EmissionFunctionArray(ParameterReader* paraRdr, Table* ch
   int Nparticles_in, FO_surf* surf_ptr_in, long FO_length_in, Deltaf_Data * df_data_in)
   {
     // omp parameters
-    CORES = omp_get_max_threads();
+      CORES = 1;//omp_get_max_threads();
     cout << "Number of cores: " << CORES << endl;
 
     // mode parameters
@@ -1046,7 +1046,7 @@ EmissionFunctionArray::EmissionFunctionArray(ParameterReader* paraRdr, Table* ch
     Stopwatch sw;
     sw.tic();
 
-    double t1 = omp_get_wtime();
+      double t1 = 0.0;//omp_get_wtime();
 
     //struct timeval t1, t2;
     //gettimeofday(&t1, NULL);
@@ -1423,9 +1423,9 @@ EmissionFunctionArray::EmissionFunctionArray(ParameterReader* paraRdr, Table* ch
     else if(OPERATION == 1)
     {
       //write_dN_pTdpTdphidy_toFile(MCID);
-      write_continuous_vn_toFile(MCID);
-      write_dN_twopipTdpTdy_toFile(MCID);
-      //write_dN_dphidy_toFile(MCID);
+      //write_continuous_vn_toFile(MCID);
+      //write_dN_twopipTdpTdy_toFile(MCID);
+      write_dN_dphidy_toFile(MCID);
       //write_dN_dy_toFile(MCID);
 
 
@@ -1537,10 +1537,10 @@ EmissionFunctionArray::EmissionFunctionArray(ParameterReader* paraRdr, Table* ch
     }
     sw.toc();
 
-    double t2 = omp_get_wtime();
+      double t2 = 0.0;//omp_get_wtime();
     cout << "\ncalculate_spectra() took " << sw.takeTime() << " seconds." << endl;
     //cout << "\ncalculate_spectra() took " << t2.tv_sec - t1.tv_sec << " seconds." << endl;
-    cout << "\ncalculate_spectra() took " << (t2 - t1) << " seconds." << endl;
+    //cout << "\ncalculate_spectra() took " << (t2 - t1) << " seconds." << endl;
   }
 
 

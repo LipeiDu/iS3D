@@ -1,0 +1,144 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      5060,        136]
+NotebookOptionsPosition[      4549,        119]
+NotebookOutlinePosition[      4886,        134]
+CellTagsIndexPosition[      4843,        131]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ClearAll", "[", "\"\<Global`*\>\"", "]"}], 
+     "\[IndentingNewLine]", 
+     RowBox[{"wd", "=", 
+      RowBox[{"SetDirectory", "@", 
+       RowBox[{"NotebookDirectory", "[", "]"}]}]}]}], ";"}], "*)"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"points", "=", "40"}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"\[Phi]Table", "=", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         FractionBox[
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"i", "-", "1"}], ")"}], "*", "2.0", "*", "Pi"}], 
+          RowBox[{"points", "-", "1"}]], ",", 
+         FractionBox[
+          RowBox[{"2.0", "*", "Pi"}], 
+          RowBox[{"points", "-", "1"}]]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "points"}], "}"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"\[Phi]Table", "[", 
+      RowBox[{"[", 
+       RowBox[{"1", ",", "2"}], "]"}], "]"}], "*=", "0.5"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"\[Phi]Table", "[", 
+      RowBox[{"[", 
+       RowBox[{
+        RowBox[{"-", "1"}], ",", "2"}], "]"}], "]"}], "*=", "0.5"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"\[Phi]Table", "=", 
+     RowBox[{"AppendTo", "[", 
+      RowBox[{"\[Phi]Table", ",", "\"\<\>\""}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"points", "=", 
+     RowBox[{"points", "//", "ToString"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Export", "[", 
+    RowBox[{
+     RowBox[{
+     "\"\<phi_trapezoid_table_\>\"", "<>", "points", "<>", "\"\<pt.dat\>\""}],
+      ",", "\[Phi]Table"}], "]"}], "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.752850393027515*^9, 3.752850652525195*^9}, {
+   3.752850710852356*^9, 3.752850731948071*^9}, {3.752850797492577*^9, 
+   3.752850800769755*^9}, {3.752850924576392*^9, 3.752850924878941*^9}, {
+   3.752851188787342*^9, 3.752851221104657*^9}, {3.752851349552648*^9, 
+   3.752851457891026*^9}, {3.752851577619273*^9, 3.752851588209198*^9}, {
+   3.752851634473312*^9, 3.752851755356419*^9}, 3.764946991290391*^9, {
+   3.764947141119294*^9, 3.764947822292405*^9}, {3.801746668899578*^9, 
+   3.801746856491486*^9}, {3.801746943707687*^9, 3.801747000516355*^9}, {
+   3.801747037468326*^9, 3.801747046850596*^9}, {3.801747703116273*^9, 
+   3.80174771018692*^9}},
+ CellLabel->
+  "In[1113]:=",ExpressionUUID->"e94dc1d2-26b0-4600-acb8-a50ab9873926"],
+
+Cell[BoxData[
+ FormBox["\<\"phi_trapezoid_table_40pt.dat\"\>", TraditionalForm]], "Output",
+ CellChangeTimes->{{3.752850406895175*^9, 3.7528504370425463`*^9}, {
+   3.752850550313973*^9, 3.752850570409992*^9}, {3.752850607830578*^9, 
+   3.752850652978623*^9}, {3.752850716464526*^9, 3.752850732278158*^9}, {
+   3.752850797956532*^9, 3.752850801058683*^9}, {3.752851192204566*^9, 
+   3.752851221444889*^9}, {3.752851355750025*^9, 3.752851359686193*^9}, 
+   3.752851458376878*^9, {3.752851578053911*^9, 3.752851588762436*^9}, {
+   3.752851635381503*^9, 3.752851755731738*^9}, 3.75960576394173*^9, {
+   3.764947248696443*^9, 3.7649473292219553`*^9}, 3.764947446322505*^9, {
+   3.76494752619042*^9, 3.76494764156196*^9}, {3.764947683133532*^9, 
+   3.764947789144215*^9}, {3.8017467830966253`*^9, 3.8017468205806923`*^9}, 
+   3.8017468568924427`*^9, 3.801746959388135*^9, 3.8017470011939983`*^9, {
+   3.801747038109412*^9, 3.801747040146735*^9}, 3.8017472483336277`*^9, 
+   3.801747710898707*^9},
+ CellLabel->
+  "Out[1119]=",ExpressionUUID->"5ae4013d-a667-4f9c-a341-62a7e64ad1f0"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.759605795342966*^9, 
+  3.75960644770091*^9}},ExpressionUUID->"858c1fa0-6aad-44a9-b95c-\
+f35928a71503"]
+},
+WindowSize->{1082, 856},
+WindowMargins->{{Automatic, 22}, {Automatic, 0}},
+FrontEndVersion->"12.0 for Mac OS X x86 (64-bit) (April 8, 2019)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 2668, 70, 327, "Input",ExpressionUUID->"e94dc1d2-26b0-4600-acb8-a50ab9873926"],
+Cell[3251, 94, 1074, 16, 30, "Output",ExpressionUUID->"5ae4013d-a667-4f9c-a341-62a7e64ad1f0"]
+}, Open  ]],
+Cell[4340, 113, 205, 4, 73, "Input",ExpressionUUID->"858c1fa0-6aad-44a9-b95c-f35928a71503"]
+}
+]
+*)
+

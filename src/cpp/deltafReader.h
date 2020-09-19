@@ -54,6 +54,8 @@ class Deltaf_Data
         double ** betabulk_data;
         double ** betaV_data;
         double ** betapi_data;
+    
+        double * xi_data;
 
         // cubic splines of the coefficients as function of temperature only (neglect muB, nB, Vmu)
         // (c1, G = 0) for muB = 0 and (c3, c4, betaV) aren't needed since they couple to baryon diffusion
@@ -103,6 +105,8 @@ class Deltaf_Data
         void test_df_coefficients(double bulkPi_over_P);
 
         void compute_particle_densities(particle_info * particle_data, int Nparticle);
+    
+        double correlationLength(double T, double muB);
 };
 
 #endif

@@ -11,7 +11,7 @@
 #include <algorithm>
 #include <array>
 //#ifdef _OMP
-#include <omp.h>
+//#include <omp.h>
 //#endif
 #include "iS3D.h"
 #include "readindata.h"
@@ -207,6 +207,19 @@ void EmissionFunctionArray::calculate_dN_pTdpTdphidy(double *Mass, double *Sign,
         double betabulk = df.betabulk;
         double betaV = df.betaV;
         double betapi = df.betapi;
+          
+        //printf("betaV=%lf\n",betaV);
+                    
+        //double corrL = df_data->correlationLength(T, muB);
+        //printf("T=%lf\t mu=%lf\t xi=%lf\n",T,muB,corrL);
+        //#ifdef CRITICAL
+          
+          
+        //betaV = betaV / corrL / corrL;
+          
+          
+        //#endif
+        //printf("betaV_xi=%lf\n",betaV);
 
         // shear and bulk coefficients
         double shear_coeff = 0.0;

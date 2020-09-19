@@ -78,6 +78,8 @@ void Deltaf_Data::load_df_coefficient_data()
   char betabulk[100] = "";
   char betaV[100] = "";
   char betapi[100] = "";
+      
+  char xi[100] = "";
 
   sprintf(c0, "%s%s", hrg_eos_path.c_str(), "c0.dat");
   sprintf(c1, "%s%s", hrg_eos_path.c_str(), "c1.dat");
@@ -90,6 +92,8 @@ void Deltaf_Data::load_df_coefficient_data()
   sprintf(betabulk, "%s%s", hrg_eos_path.c_str(), "betabulk.dat");
   sprintf(betaV, "%s%s", hrg_eos_path.c_str(), "betaV.dat");
   sprintf(betapi, "%s%s", hrg_eos_path.c_str(), "betapi.dat");
+    
+  sprintf(xi, "%s%s", hrg_eos_path.c_str(), "xi.dat");
 
 
   // coefficient files and names
@@ -104,6 +108,8 @@ void Deltaf_Data::load_df_coefficient_data()
   FILE * betabulk_file = fopen(betabulk, "r");
   FILE * betaV_file = fopen(betaV, "r");
   FILE * betapi_file = fopen(betapi, "r");
+    
+  FILE * xi_file = fopen(xi, "r");
 
   if(c0_file == NULL) printf("Couldn't open c0 coefficient file!\n");
   if(c1_file == NULL) printf("Couldn't open c1 coefficient file!\n");
@@ -116,6 +122,8 @@ void Deltaf_Data::load_df_coefficient_data()
   if(betabulk_file == NULL) printf("Couldn't open betabulk coefficient file!\n");
   if(betaV_file == NULL) printf("Couldn't open betaV coefficient file!\n");
   if(betapi_file == NULL) printf("Couldn't open betapi coefficient file!\n");
+    
+  if(xi_file == NULL) printf("Couldn't open xi file!\n");
 
   // read 1st line (T dimension) and 2nd line (muB dimension)
   // (c0, ..., c4) should have same (T,muB) dimensions
@@ -163,6 +171,8 @@ void Deltaf_Data::load_df_coefficient_data()
   betabulk_data = (double **)calloc(points_muB, sizeof(double));
   betaV_data = (double **)calloc(points_muB, sizeof(double));
   betapi_data = (double **)calloc(points_muB, sizeof(double));
+    
+  xi_data = (double *)calloc(8686, sizeof(double));
 
   // scan coefficient files
   for(int iB = 0; iB < points_muB; iB++)  // muB
@@ -195,6 +205,12 @@ void Deltaf_Data::load_df_coefficient_data()
       fscanf(betapi_file, "%lf\t\t%lf\t\t%lf\n", &T_array[iT], &muB_array[iB], &betapi_data[iB][iT]);
     } // iT
   } // iB
+    
+  for(int i = 0; i < 8686; ++i){
+      double x, y;
+      fscanf(xi_file,"%lf %lf %lf", & x, & y, & xi_data[i]);
+  }
+  fclose(xi_file);
 
   T_min = T_array[0];
   muB_min = muB_array[0];
@@ -401,10 +417,10 @@ double Deltaf_Data::calculate_bilinear(double ** f_data, double T, double muB, d
   //
   //  f_LL    f_RL
 
-  double f_LL = f_data[iTL][imuBL];
-  double f_LR = f_data[iTL][imuBR];
-  double f_RL = f_data[iTR][imuBL];
-  double f_RR = f_data[iTR][imuBR];
+  double f_LL = f_data[imuBL][iTL];
+  double f_LR = f_data[imuBR][iTL];
+  double f_RL = f_data[imuBL][iTR];
+  double f_RR = f_data[imuBR][iTR];
 
   return ((f_LL*(TR - T) + f_RL*(T - TL)) * (muBR - muB)  +  (f_LR*(TR - T) + f_RR*(T - TL)) * (muB - muBL)) / (dT * dmuB);
 }
@@ -420,11 +436,20 @@ deltaf_coefficients Deltaf_Data::bilinear_interpolation(double T, double muB, do
 
   double TL, TR, muBL, muBR;
 
-  if(!(iTL >= 0 && iTR < points_T) || !(imuBL >= 0 && imuBR < points_muB))
-  {
-    printf("Error: (T,muB) outside df coefficient table. Exiting...\n");
-    exit(-1);
-  }
+  //if(!(iTL >= 0 && iTR < points_T) || !(imuBL >= 0 && imuBR < points_muB))
+  //{
+  //  printf("Error: (T,muB) outside df coefficient table. Exiting...\n");
+  //  exit(-1);
+  //}
+    if(!(iTL >= 0 && iTR < points_T) || !(imuBL >= 0 && imuBR < points_muB))
+    {
+      printf("T = %lf\n", T);
+      printf("muB = %lf\n", muB);
+      printf("(iTL, iTR) = (%d, %d)\n", iTL, iTR);
+      printf("(imuBL, imuBR) = (%d, %d)\n", imuBL, imuBR);
+      printf("Error: (T,muB) outside df coefficient table. Exiting...\n");
+      exit(-1);
+    }
   else
   {
     TL = T_array[iTL];
@@ -531,6 +556,37 @@ void Deltaf_Data::test_df_coefficients(double bulkPi_over_P)
   {
     printf("\n(lambda, z, dlambda, dz, betapi) = (%lf, %lf, %lf, %lf, %lf)\n\n", df.lambda, df.z, df.delta_lambda, df.delta_z, df.betapi);
   }
+}
+
+double Deltaf_Data::correlationLength(double T, double muB){
+    double T_min = 0.07;
+    double muB_min = 0.11;
+    double dT = 0.002;
+    double dmuB = 0.002;
+    int nmuB = 86;
+    int nT = 101;
+    
+    if((0.07<=T)&&(T<=0.27)&&(0.11<=muB)&&(muB<=0.28)){
+        int iTL = (int)floor((T - T_min) / dT);
+        int iTR = iTL + 1;
+
+        int imuBL = (int)floor((muB - muB_min) / dmuB);
+        int imuBR = imuBL + 1;
+
+        double TL = T_min + iTL * dT;
+        double TR = T_min + iTR * dT;
+        double muBL = muB_min + imuBL * dmuB;
+        double muBR = muB_min + imuBR * dmuB;
+        
+        double f_LL = xi_data[imuBL+iTL*nmuB];
+        double f_LR = xi_data[imuBL+iTL*nmuB];
+        double f_RL = xi_data[imuBL+iTL*nmuB];
+        double f_RR = xi_data[imuBL+iTL*nmuB];
+
+        return ((f_LL*(TR - T) + f_RL*(T - TL)) * (muBR - muB)  +  (f_LR*(TR - T) + f_RR*(T - TL)) * (muB - muBL)) / (dT * dmuB);
+    }
+    else
+        return 1.0;
 }
 
 void Deltaf_Data::compute_particle_densities(particle_info * particle_data, int Nparticle)
