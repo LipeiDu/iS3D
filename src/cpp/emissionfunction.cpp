@@ -1422,9 +1422,9 @@ EmissionFunctionArray::EmissionFunctionArray(ParameterReader* paraRdr, Table* ch
     }
     else if(OPERATION == 1)
     {
-      //write_dN_pTdpTdphidy_toFile(MCID);
+      write_dN_pTdpTdphidy_toFile(MCID);
       //write_continuous_vn_toFile(MCID);
-      //write_dN_twopipTdpTdy_toFile(MCID);
+      write_dN_twopipTdpTdy_toFile(MCID);
       write_dN_dphidy_toFile(MCID);
       //write_dN_dy_toFile(MCID);
 

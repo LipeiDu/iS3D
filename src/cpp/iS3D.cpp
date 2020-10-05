@@ -196,11 +196,10 @@ void IS3D::run_particlization(int fo_from_file)
   Table y_tab("tables/eta/eta_gauss_table_48pt.dat");
   Table eta_tab("tables/eta/eta_gauss_table_48pt.dat");*/     // eta_s values and weights for smooth CFF
 
-  string pT_Table_File = "tables/pT/pT_gauss_table_48pt.dat";
-  Table pT_tab(pT_Table_File);                              // pT value and weight table
-  Table phi_tab("tables/phi/phi_trapezoid_table_32pt.dat");
-  Table y_tab("tables/eta/eta_gauss_table_24pt.dat");
-  Table eta_tab("tables/eta/eta_gauss_table_24pt.dat");     // eta_s values and weights for smooth CFF
+  Table pT_tab("tables/pT/pT_gauss_table_48pt.dat"); // pT value and weight table
+  Table phi_tab("tables/phi/phi_trapezoid_table_40pt.dat");
+  Table y_tab("tables/eta/eta_gauss_table_48pt.dat");
+  Table eta_tab("tables/eta/eta_gauss_table_48pt.dat"); // eta_s values and weights for smooth CFF
     
   EmissionFunctionArray efa(paraRdr, &chosen_particles, &pT_tab, &phi_tab, &y_tab, &eta_tab, particle_data, Nparticle, surf_ptr, FO_length, df_data);
 
