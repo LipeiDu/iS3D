@@ -10,9 +10,9 @@
 #include <random>
 #include <algorithm>
 #include <array>
-//#ifdef _OMP
-//#include <omp.h>
-//#endif
+#ifdef _OPENMP
+#include <omp.h>
+#endif
 #include "iS3D.h"
 #include "readindata.h"
 #include "emissionfunction.h"
