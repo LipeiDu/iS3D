@@ -87,4 +87,4 @@ r_bins = 60						# number of r bins
 #do_resonance_decays = 0			# switch for resonance decays after thermal spectra calculation (not finished)
 #lightest_particle = 111			# PDG MC ID of lightest particle for resonance decay feed-down
 
-
+boltzmann = 0						# use boltzmann distribution

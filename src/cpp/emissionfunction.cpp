@@ -168,6 +168,9 @@ EmissionFunctionArray::EmissionFunctionArray(ParameterReader* paraRdr, Table* ch
     INCLUDE_SHEAR_DELTAF = paraRdr->getVal("include_shear_deltaf");
     INCLUDE_BULK_DELTAF = paraRdr->getVal("include_bulk_deltaf");
     INCLUDE_BARYONDIFF_DELTAF = paraRdr->getVal("include_baryondiff_deltaf");
+    
+    BOLTZMANN = paraRdr->getVal("boltzmann");
+    
     REGULATE_DELTAF = paraRdr->getVal("regulate_deltaf");
     OUTFLOW = paraRdr->getVal("outflow");
 
@@ -1428,7 +1431,7 @@ EmissionFunctionArray::EmissionFunctionArray(ParameterReader* paraRdr, Table* ch
       //write_continuous_vn_toFile(MCID);
       write_dN_twopipTdpTdy_toFile(MCID);
       write_dN_dphidy_toFile(MCID);
-      //write_dN_dy_toFile(MCID);
+      write_dN_dy_toFile(MCID);
 
 
       // option to do resonance decays option

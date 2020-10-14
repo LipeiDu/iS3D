@@ -76,6 +76,9 @@ private:
   int INCLUDE_SHEAR_DELTAF;       // shear df 
   int INCLUDE_BULK_DELTAF;        // bulk df
   int INCLUDE_BARYONDIFF_DELTAF;  // baryon diffusion df
+  
+  int BOLTZMANN;
+  
   int REGULATE_DELTAF;            // regulate |df| <= feq
   int OUTFLOW;                    // enforce outflow p.dsigma > 0
 

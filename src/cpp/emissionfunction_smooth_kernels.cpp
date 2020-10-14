@@ -266,6 +266,12 @@ void EmissionFunctionArray::calculate_dN_pTdpTdphidy(double *Mass, double *Sign,
           double mass = Mass[ipart];              // mass (GeV)
           double mass_squared = mass * mass;
           double sign = Sign[ipart];              // quantum statistics sign
+            
+          if(BOLTZMANN)
+          {
+              sign = 0.0;
+          }
+            
           double degeneracy = Degeneracy[ipart];  // spin degeneracy
           double baryon = Baryon[ipart];          // baryon number
           double chem = baryon * alphaB;          // chemical potential term in feq
