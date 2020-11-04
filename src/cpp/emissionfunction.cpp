@@ -1107,7 +1107,7 @@ EmissionFunctionArray::EmissionFunctionArray(ParameterReader* paraRdr, Table* ch
 
     // freezeout surface info exclusive for VH
     double *E, *T, *P;
-    if(MODE == 0 || MODE == 1 || MODE == 4 || MODE == 5 || MODE == 6 || MODE == 7)
+    if(MODE == 0 || MODE == 1 || MODE == 4 || MODE == 5 || MODE == 6 || MODE == 7 || MODE == 8)
     {
       E = (double*)calloc(FO_length, sizeof(double));
       P = (double*)calloc(FO_length, sizeof(double));
@@ -1201,7 +1201,7 @@ EmissionFunctionArray::EmissionFunctionArray(ParameterReader* paraRdr, Table* ch
       // reading info from surface
       surf = &surf_ptr[icell];
 
-      if(MODE == 0 || MODE == 1 || MODE == 4 || MODE == 5 || MODE == 6 || MODE == 7)
+      if(MODE == 0 || MODE == 1 || MODE == 4 || MODE == 5 || MODE == 6 || MODE == 7 || MODE == 8)
       {
         E[icell] = surf->E;
         P[icell] = surf->P;
@@ -1276,7 +1276,7 @@ EmissionFunctionArray::EmissionFunctionArray(ParameterReader* paraRdr, Table* ch
     }
 
     // compute the Cooper-Frye formula
-    if(MODE == 0 || MODE == 1 || MODE == 4 || MODE == 5 || MODE == 6 || MODE == 7) // viscous hydro
+    if(MODE == 0 || MODE == 1 || MODE == 4 || MODE == 5 || MODE == 6 || MODE == 7 || MODE == 8) // viscous hydro
     {
       switch(DF_MODE)
       {
@@ -1469,7 +1469,7 @@ EmissionFunctionArray::EmissionFunctionArray(ParameterReader* paraRdr, Table* ch
     free(Sign);
     free(Baryon);
 
-    if(MODE == 0 || MODE == 1 || MODE == 4 || MODE == 5 || MODE == 6 || MODE == 7)
+    if(MODE == 0 || MODE == 1 || MODE == 4 || MODE == 5 || MODE == 6 || MODE == 7 || MODE == 8)
     {
       free(E);
       free(P);

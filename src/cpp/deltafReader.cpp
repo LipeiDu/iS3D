@@ -299,6 +299,15 @@ void Deltaf_Data::compute_jonah_coefficients(particle_info * particle_data, int 
 
 void Deltaf_Data::construct_cubic_splines()
 {
+    
+  printf("\nConstructing cubic splines...\n");
+    
+  printf("T_array = %d points\n", points_T);
+  for(int iT = 0; iT < points_T; iT++)
+  {
+    printf("%lf\n", T_array[iT]);
+  }
+    
   // Allocate memory for cubic splines
   c0_spline = gsl_spline_alloc(gsl_interp_cspline, points_T);
   c2_spline = gsl_spline_alloc(gsl_interp_cspline, points_T);
@@ -401,10 +410,10 @@ double Deltaf_Data::calculate_bilinear(double ** f_data, double T, double muB, d
   //
   //  f_LL    f_RL
 
-  double f_LL = f_data[iTL][imuBL];
-  double f_LR = f_data[iTL][imuBR];
-  double f_RL = f_data[iTR][imuBL];
-  double f_RR = f_data[iTR][imuBR];
+  double f_LL = f_data[imuBL][iTL];
+  double f_LR = f_data[imuBL][iTL];
+  double f_RL = f_data[imuBL][iTR];
+  double f_RR = f_data[imuBL][iTR];
 
   return ((f_LL*(TR - T) + f_RL*(T - TL)) * (muBR - muB)  +  (f_LR*(TR - T) + f_RR*(T - TL)) * (muB - muBL)) / (dT * dmuB);
 }
@@ -420,10 +429,24 @@ deltaf_coefficients Deltaf_Data::bilinear_interpolation(double T, double muB, do
 
   double TL, TR, muBL, muBR;
 
+  //if(!(iTL >= 0 && iTR < points_T) || !(imuBL >= 0 && imuBR < points_muB))
+  //{
+  //  printf("Error: (T,muB) outside df coefficient table. Exiting...\n");
+  //  exit(-1);
+  //}
   if(!(iTL >= 0 && iTR < points_T) || !(imuBL >= 0 && imuBR < points_muB))
   {
+    printf("T = %lf\n", T);
+    printf("muB = %lf\n", muB);
+    printf("(iTL, iTR) = (%d, %d)\n", iTL, iTR);
+    printf("(imuBL, imuBR) = (%d, %d)\n", imuBL, imuBR);
     printf("Error: (T,muB) outside df coefficient table. Exiting...\n");
-    exit(-1);
+    //exit(-1);
+      
+    TL = T_array[0];
+    TR = T_array[iTR];
+    muBL = muB_array[imuBL];
+    muBR = muB_array[imuBR];
   }
   else
   {
@@ -516,6 +539,8 @@ void Deltaf_Data::test_df_coefficients(double bulkPi_over_P)
   double P = QGP.pressure;
   double muB = QGP.baryon_chemical_potential;
   double bulkPi = bulkPi_over_P * P;
+    
+  printf("\nTesting df coefficients for Pi/Peq = %lf\n", bulkPi_over_P);     // * * ADD THIS * * //
 
   deltaf_coefficients df = evaluate_df_coefficients(T, muB, E, P, bulkPi);
 
@@ -538,6 +563,8 @@ void Deltaf_Data::compute_particle_densities(particle_info * particle_data, int 
   // get the average temperature, energy density, pressure, etc.
   Plasma QGP;
   QGP.load_thermodynamic_averages();
+    
+  printf("\n Computing particle densities...\n");    // * * ADD THIS * * //
 
   const double T = QGP.temperature;    // GeV
   const double E = QGP.energy_density; // GeV / fm^3
