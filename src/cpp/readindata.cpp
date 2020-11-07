@@ -872,19 +872,13 @@ void FO_data_reader::read_surf_VH_MUSIC_New(long length, FO_surf* surf_ptr)
 // New public MUSIC version (3+1)D format, L. Du
 void FO_data_reader::read_surf_VH_MUSIC_3D(long length, FO_surf* surf_ptr)
 {
-    
-    printf("hello\n");
-    
+
   cout << "Reading in freezeout surface in (new) public MUSIC 3+1D format" << endl;
-  
-  // read in surface in binary format
-  int surface_in_binary = 1;
-    
   ostringstream surfdat_stream;
   double dummy;
   surfdat_stream << pathToInput << "/surface.dat";
-  ifstream surfdat;
-    
+  ifstream surfdat(surfdat_stream.str().c_str());
+
   // average thermodynamic quantities on surface
   double Tavg = 0.0;
   double Eavg = 0.0;
@@ -1119,7 +1113,6 @@ void FO_data_reader::read_surf_VH_MUSIC_3D(long length, FO_surf* surf_ptr)
         nBavg += (nB * dsigma_magnitude);
       }
     }
-
 
   surfdat.close();
 
