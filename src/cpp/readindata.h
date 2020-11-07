@@ -191,6 +191,7 @@ class FO_data_reader
         int include_bulk_deltaf; //switch to turn on/off (\delta)f correction from bulk viscosity
         int include_shear_deltaf; //switch to turn on/off (\delta)f correction from shear viscosity
         int include_baryondiff_deltaf; //switch to turn on/off (\delta)f correction from baryon diffusion
+        int fo_binary;
 
     public:
         FO_data_reader(ParameterReader * paraRdr_in, string pathToInput);
@@ -206,6 +207,7 @@ class FO_data_reader
         void read_surf_VH_MUSIC(long length, FO_surf * surf_ptr);
         void read_surf_VH_MUSIC_New(long length, FO_surf* surf_ptr);
         void read_surf_VH_hiceventgen(long length, FO_surf* surf_ptr);
+        void read_surf_VH_MUSIC_3D(long length, FO_surf* surf_ptr); // L. Du
 };
 
 

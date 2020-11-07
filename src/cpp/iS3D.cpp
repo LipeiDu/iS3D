@@ -169,8 +169,14 @@ void IS3D::run_particlization(int fo_from_file)
   // df coefficient data
   Deltaf_Data * df_data = new Deltaf_Data(paraRdr);
   df_data->load_df_coefficient_data();
-  df_data->construct_cubic_splines();
-  df_data->compute_jonah_coefficients(particle_data, Nparticle);
+    
+  int include_baryon = paraRdr->getVal("include_baryon");
+  if(!include_baryon)
+  {
+    df_data->construct_cubic_splines();
+    df_data->compute_jonah_coefficients(particle_data, Nparticle);
+  }
+    
   df_data->compute_particle_densities(particle_data, Nparticle);
   df_data->test_df_coefficients(-0.1);
 
