@@ -26,6 +26,7 @@ Deltaf_Data::Deltaf_Data(ParameterReader * paraRdr_in)
   mode = paraRdr->getVal("mode");
   df_mode = paraRdr->getVal("df_mode");
   include_baryon = paraRdr->getVal("include_baryon");
+  BOLTZMANN = paraRdr->getVal("boltzmann");
 
   if(hrg_eos == 1)
   {
@@ -601,6 +602,11 @@ void Deltaf_Data::compute_particle_densities(particle_info * particle_data, int 
     double baryon = (double)particle_data[i].baryon;
     double sign = (double)particle_data[i].sign;
     double mbar = mass / T;
+      
+    if(BOLTZMANN)
+    {
+        sign = 0.0;
+    }
 
     // equilibrium density
     double neq_fact = degeneracy * pow(T,3) / two_pi2_hbarC3;

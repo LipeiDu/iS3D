@@ -953,6 +953,12 @@ void EmissionFunctionArray::sample_dN_pTdpTdphidy(double *Mass, double *Sign, do
           double mbar = mass / T;
           double degeneracy = Degeneracy[ipart];
           double sign = Sign[ipart];
+
+          if(BOLTZMANN)
+          {
+              sign = 0.0;
+          }
+
           double baryon = Baryon[ipart];
 
           dn_list[ipart] = max_particle_number(mbar, degeneracy, sign, baryon, T, alphaB, bulkPi, df, feqmod_breaks_down, laguerre, DF_MODE, INCLUDE_BARYON, neq_fact, J20_fact);
@@ -983,6 +989,12 @@ void EmissionFunctionArray::sample_dN_pTdpTdphidy(double *Mass, double *Sign, do
           double mass = Mass[chosen_index];                   // mass of sampled particle in GeV
           double mass_squared = mass * mass;
           double sign = Sign[chosen_index];                   // quantum statistics sign
+
+          if(BOLTZMANN)
+          {
+              sign = 0.0;
+          }
+          
           double baryon = Baryon[chosen_index];               // baryon number
           double chem = baryon * alphaB;
           double chem_mod = baryon * alphaB_mod;

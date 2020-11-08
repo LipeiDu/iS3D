@@ -169,6 +169,7 @@ EmissionFunctionArray::EmissionFunctionArray(ParameterReader* paraRdr, Table* ch
     INCLUDE_BARYONDIFF_DELTAF = paraRdr->getVal("include_baryondiff_deltaf");
     REGULATE_DELTAF = paraRdr->getVal("regulate_deltaf");
     OUTFLOW = paraRdr->getVal("outflow");
+    BOLTZMANN = paraRdr->getVal("boltzmann");
 
 
     // momentum tables
@@ -1079,6 +1080,12 @@ EmissionFunctionArray::EmissionFunctionArray(ParameterReader* paraRdr, Table* ch
 
       Mass[ipart] = particle->mass;
       Sign[ipart] = particle->sign;
+      
+      if(BOLTZMANN)
+          {
+              Sign[ipart] = 0.0;
+          }
+
       Degeneracy[ipart] = particle->gspin;
       Baryon[ipart] = particle->baryon;
 

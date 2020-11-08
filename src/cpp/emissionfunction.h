@@ -78,6 +78,7 @@ private:
   int INCLUDE_BARYONDIFF_DELTAF;  // baryon diffusion df
   int REGULATE_DELTAF;            // regulate |df| <= feq
   int OUTFLOW;                    // enforce outflow p.dsigma > 0
+  int BOLTZMANN;
 
 
   // momentum tables

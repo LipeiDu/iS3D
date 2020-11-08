@@ -257,6 +257,11 @@ void EmissionFunctionArray::calculate_dN_pTdpTdphidy(double *Mass, double *Sign,
           double baryon = Baryon[ipart];          // baryon number
           double chem = baryon * alphaB;          // chemical potential term in feq
 
+          if(BOLTZMANN)
+          {
+              sign = 0.0;
+          }
+
           double weight1 = prefactor * degeneracy;
 
           for(long ipT = 0; ipT < pT_tab_length; ipT++)

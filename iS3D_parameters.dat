@@ -56,10 +56,10 @@ fast = 1						# switch to run sampler in fast mode
 								# assumes (T,muB) throughout surface are very close to (T_avg, muB_avg)
 								# turn off if you have corona cells
 
-y_cut = 3.0						# rapidity cut: |y| <= y_cut
+y_cut = 5.0						# rapidity cut: |y| <= y_cut
 
 min_num_hadrons = 1.0e+8		# across all samples >= min_num_hadrons
-max_num_samples	= 1.0e+1   		# oversampling will finish after this number of samples
+max_num_samples	= 5.0e+3   		# oversampling will finish after this number of samples
 
 sampler_seed = -1 				# sets seed of particle sampler. If sampler_seed < 0, seed is set using clocktime
 
@@ -72,10 +72,10 @@ pT_bins = 100					# number of pT bins
 
 y_bins = 100					# number of rapidity bins
 
-phip_bins = 100					# number of phip bins
+phip_bins = 50					# number of phip bins
 
 eta_cut	= 7.0					# spacetime rapidity cut: |eta| <= eta_cut (should be 2 units > y_cut)
-eta_bins = 140					# number of eta bins
+eta_bins = 70					# number of eta bins
 
 tau_min = 0.0					# tau min in fm (for sampled dN_taudtaudy test)
 tau_max = 12.0					# tau max in fm
@@ -86,6 +86,8 @@ r_max = 12.0					# r max in fm
 r_bins = 60						# number of r bins
 
 surface_in_binary = 1
+
+boltzmann = 1					# use boltzmann distribution
 
 #do_resonance_decays = 0			# switch for resonance decays after thermal spectra calculation (not finished)
 #lightest_particle = 111			# PDG MC ID of lightest particle for resonance decay feed-down

@@ -875,9 +875,9 @@ void FO_data_reader::read_surf_VH_MUSIC_3D(long length, FO_surf* surf_ptr)
 
   cout << "Reading in freezeout surface in (new) public MUSIC 3+1D format" << endl;
   ostringstream surfdat_stream;
-  double dummy;
+    
   surfdat_stream << pathToInput << "/surface.dat";
-  ifstream surfdat(surfdat_stream.str().c_str());
+  
 
   // average thermodynamic quantities on surface
   double Tavg = 0.0;
@@ -888,22 +888,21 @@ void FO_data_reader::read_surf_VH_MUSIC_3D(long length, FO_surf* surf_ptr)
   double total_surface_volume = 0.0;
     
     if (fo_binary)
-    {
+    {   
+        std::ifstream surfdat(surfdat_stream.str().c_str(), std::ios::binary);
 
-        surfdat.open(surfdat_stream.str().c_str(), std::ios::binary);
-
-        float array[34];
+        //long i = 0;
         
-        long i = 0;
-        
-        while (!surfdat.eof())
+        //while (!surfdat.eof())
+        for (long i = 0; i < length; i++)
           {
+            float array[34];
+            float dummy;
+            
             for (int ii = 0; ii < 34; ii++) {
                 dummy = 0.;
                 surfdat.read((char*)&dummy, sizeof(float));
-                array[ii] = dummy;
-                
-                printf("ii=%d, dummy=%lf\n", ii, dummy);
+                array[ii] = double(dummy);
             }
             
             
@@ -925,17 +924,21 @@ void FO_data_reader::read_surf_VH_MUSIC_3D(long length, FO_surf* surf_ptr)
 
             double E = array[12] * hbarC;
             double T = array[13] * hbarC; 
-
-            printf("i=%d, t=%lf, x=%lf, eta=%lf, T=%lf\n", i, surf_ptr[i].tau, surf_ptr[i].eta, E, T);
+            
+            //if(T<0.1) T = 0.1;
 
             surf_ptr[i].E    = E;
             surf_ptr[i].T    = T;
             surf_ptr[i].muB  = array[14] * hbarC;
             surf_ptr[i].muS  = array[15] * hbarC;
             //surf_ptr[i].muC  = array[16] * hbarC;
-
+            
+            
             double P = array[17] * surf_ptr[i].T - surf_ptr[i].E;
             surf_ptr[i].P    = P;
+            
+            //printf("i=%d, t=%lf, x=%lf, eta=%lf, T=%lf, mu=%lf, P=%lf\n", i, surf_ptr[i].tau, surf_ptr[i].eta, E, T, surf_ptr[i].muB, P);
+
 
             surf_ptr[i].pitt = array[18] * hbarC;
             surf_ptr[i].pitx = array[19] * hbarC;
@@ -994,11 +997,16 @@ void FO_data_reader::read_surf_VH_MUSIC_3D(long length, FO_surf* surf_ptr)
             muBavg += (muB * dsigma_magnitude);
             nBavg += (nB * dsigma_magnitude);
             
-            i++;
+            //i++;
         }
+        
+        surfdat.close();
     } 
     else 
     {
+      std::ifstream surfdat(surfdat_stream.str().c_str());
+        
+      double dummy;
       for (long i = 0; i < length; i++)
       {
         // contravariant spacetime position
@@ -1112,9 +1120,9 @@ void FO_data_reader::read_surf_VH_MUSIC_3D(long length, FO_surf* surf_ptr)
         muBavg += (muB * dsigma_magnitude);
         nBavg += (nB * dsigma_magnitude);
       }
+        
+        surfdat.close();
     }
-
-  surfdat.close();
 
   Tavg /= total_surface_volume;
   Eavg /= total_surface_volume;
