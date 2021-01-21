@@ -18,7 +18,7 @@ hrg_eos = 2						# HRG equation of state (PDG/chosen_particles.dat MUST be subse
 								# 2: reads pdg_smash.dat (goes up to Υ(3S))
 								# 3: reads pdg_box.dat (smash box: no decay info now, so can't do resdecays)
 
-dimension = 2					# this switch determines the dimensionality of the freezeout surface
+dimension = 3					# this switch determines the dimensionality of the freezeout surface
 								# 2: boost invariant
 								# 3: full 3+1D
 
@@ -35,6 +35,7 @@ include_baryon = 1				# switch to include baryon chemical potential in distribut
 include_bulk_deltaf = 0			# switch to include bulk df correction (or residual bulk for VAH)
 include_shear_deltaf = 0		# switch to include shear df correction (or residual pi~ and W_perp for VAH)
 include_baryondiff_deltaf = 1	# switch to include baryon diffusion df correction
+remove_baryon_correction = 0
 
 regulate_deltaf = 0				# switch to force |delta_f| < f_eq for VH and |delta_f~| < f_a for VAH
 outflow = 0						# switch to include Theta(p.dsigma) in smooth CFF
@@ -88,3 +89,7 @@ r_bins = 60						# number of r bins
 #lightest_particle = 111			# PDG MC ID of lightest particle for resonance decay feed-down
 
 boltzmann = 0						# use boltzmann distribution
+
+critical = 0
+T_c = 0.138
+mu_c = 0.42

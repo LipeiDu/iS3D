@@ -81,7 +81,10 @@ private:
   
   int REGULATE_DELTAF;            // regulate |df| <= feq
   int OUTFLOW;                    // enforce outflow p.dsigma > 0
-
+  
+  int CRITICAL;
+  double T_C;
+  double MU_C;
 
   // momentum tables
   Table *pT_tab, *phi_tab, *y_tab, *eta_tab;
@@ -162,6 +165,9 @@ public:
   // constructor / destructor
   EmissionFunctionArray(ParameterReader* paraRdr_in, Table* chosen_particle, Table* pT_tab_in, Table* phi_tab_in, Table* y_tab_in, Table* eta_tab_in, particle_info* particles_in, int Nparticles, FO_surf* FOsurf_ptr_in, long FO_length_in, Deltaf_Data * df_data_in);
   ~EmissionFunctionArray();
+  
+  // parametrization of correlation length, L. Du
+  double correlationLength(double T, double muB);
 
   // main function
   void calculate_spectra(std::vector<Sampled_Particle> &particle_event_list_in);

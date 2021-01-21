@@ -173,6 +173,10 @@ EmissionFunctionArray::EmissionFunctionArray(ParameterReader* paraRdr, Table* ch
     
     REGULATE_DELTAF = paraRdr->getVal("regulate_deltaf");
     OUTFLOW = paraRdr->getVal("outflow");
+    
+    CRITICAL = paraRdr->getVal("critical");
+    T_C = paraRdr->getVal("T_c");
+    MU_C = paraRdr->getVal("mu_c");
 
 
     // momentum tables
@@ -1428,7 +1432,7 @@ EmissionFunctionArray::EmissionFunctionArray(ParameterReader* paraRdr, Table* ch
     else if(OPERATION == 1)
     {
       write_dN_pTdpTdphidy_toFile(MCID);
-      //write_continuous_vn_toFile(MCID);
+      write_continuous_vn_toFile(MCID);
       write_dN_twopipTdpTdy_toFile(MCID);
       write_dN_dphidy_toFile(MCID);
       write_dN_dy_toFile(MCID);

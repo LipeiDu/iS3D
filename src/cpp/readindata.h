@@ -191,6 +191,7 @@ class FO_data_reader
         int include_bulk_deltaf; //switch to turn on/off (\delta)f correction from bulk viscosity
         int include_shear_deltaf; //switch to turn on/off (\delta)f correction from shear viscosity
         int include_baryondiff_deltaf; //switch to turn on/off (\delta)f correction from baryon diffusion
+        int remove_baryon_correction; // L. Du
 
     public:
         FO_data_reader(ParameterReader * paraRdr_in, string pathToInput);
