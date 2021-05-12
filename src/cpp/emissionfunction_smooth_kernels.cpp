@@ -30,22 +30,20 @@ using namespace std;
 
 double EmissionFunctionArray::correlationLength(double T, double muB){
     
-    double pi = 3.14159265359;
 
-    // some parameters in the parametrization
+    double T0 = 0.155;
+    double k2 = 0.0149;
+    double Alpha = atan(2*k2*MU_C/T0);
     
-    double delta_T = 0.02;
-    double delta_mu = 0.065;
-    
-    double A = 0.25;
-    
-    double Alpha = 4.6 * (pi / 180); // angle between h and r axes
+    double delta_T = 0.018;
+    double delta_mu = 0.092;
     
     double xi_min = 1.0;
-    double xi_max = 3.0;
+    double xi_max = 10.0;
 
     // critical exponent
     double nu = 2./3.;
+    double betaDeltaInv = 0.6;
 
     // rotation by angle Alpha
     double Tp  = (muB - MU_C) * sin(Alpha) + (T - T_C) * cos(Alpha);
@@ -55,10 +53,10 @@ double EmissionFunctionArray::correlationLength(double T, double muB){
     double xi_ratio = xi_min / xi_max;
     double xi_ratio_nu = pow(xi_ratio, 2./nu);
 
-    double mu2 = (mup / delta_mu) * (mup / delta_mu);
-    double T2  = (Tp / delta_T) * (Tp / delta_T);
+    double mu2 = pow((mup / delta_mu), 2);
+    double T2  = pow(fabs(Tp / delta_T), 2*betaDeltaInv);
 
-    double Tanh_term = tanh(mu2 + A * T2);
+    double Tanh_term = tanh(mu2 + T2);
     double Br_term = Tanh_term * (1 - xi_ratio_nu) + xi_ratio_nu;
 
     return xi_min / pow(Br_term, nu/2);
@@ -254,7 +252,7 @@ void EmissionFunctionArray::calculate_dN_pTdpTdphidy(double *Mass, double *Sign,
             
             double corrL = correlationLength(T, muB);  
             betaV = betaV / corrL;
-            
+            //printf("corrL=%lf\n",corrL);
         }
 
         //printf("betaV_xi=%lf\n",betaV);

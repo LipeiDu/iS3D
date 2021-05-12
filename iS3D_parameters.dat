@@ -91,5 +91,5 @@ r_bins = 60						# number of r bins
 boltzmann = 0						# use boltzmann distribution
 
 critical = 0
-T_c = 0.138
-mu_c = 0.42
+T_c = 0.149
+mu_c = 0.25

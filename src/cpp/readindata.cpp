@@ -254,46 +254,76 @@ void FO_data_reader::read_surf_VH_old(long length, FO_surf* surf_ptr)
     double muB = 0.0; // nonzero if include_baryon
     double nB = 0.0;  // effectively defaulted to zero if no diffusion correction needed  (even if include_baryon)
  
+//     if (include_baryon)
+//     {
+        
+//       surfdat >> dummy;
+//       muB = dummy * hbarC;              // baryon chemical potential
+//       surf_ptr[i].muB = muB;
+        
+//       surfdat >> nB;                    // baryon density
+//       surf_ptr[i].nB = nB;
+        
+//     }else{
+        
+//       surfdat >> dummy;
+//       surfdat >> dummy;
+        
+//     }
+      
+//     if (include_baryondiff_deltaf)
+//     {
+
+//       surfdat >> surf_ptr[i].Vt;        // four contravariant components of baryon diffusion vector
+//       surfdat >> surf_ptr[i].Vx;
+//       surfdat >> surf_ptr[i].Vy;
+//       surfdat >> surf_ptr[i].Vn;        // fixed units on 10/8 (overlooked)
+        
+//         if (remove_baryon_correction){
+            
+//             surf_ptr[i].Vt = 0.;        // four contravariant components of baryon diffusion vector
+//             surf_ptr[i].Vx = 0.;
+//             surf_ptr[i].Vy = 0.;
+//             surf_ptr[i].Vn = 0.;
+//         }
+        
+//     }else{
+
+//         surfdat >> dummy;
+//         surfdat >> dummy;
+//         surfdat >> dummy;
+//         surfdat >> dummy;
+
+//     }
+      
     if (include_baryon)
     {
-        
       surfdat >> dummy;
       muB = dummy * hbarC;              // baryon chemical potential
       surf_ptr[i].muB = muB;
-        
-      surfdat >> nB;                    // baryon density
-      surf_ptr[i].nB = nB;
-        
     }else{
-        
       surfdat >> dummy;
-      surfdat >> dummy;
-        
     }
       
     if (include_baryondiff_deltaf)
     {
-
+      surfdat >> nB;                    // baryon density
+      surf_ptr[i].nB = nB;
       surfdat >> surf_ptr[i].Vt;        // four contravariant components of baryon diffusion vector
       surfdat >> surf_ptr[i].Vx;
       surfdat >> surf_ptr[i].Vy;
       surfdat >> surf_ptr[i].Vn;        // fixed units on 10/8 (overlooked)
         
-        if (remove_baryon_correction){
-            
-            surf_ptr[i].Vt = 0.;        // four contravariant components of baryon diffusion vector
-            surf_ptr[i].Vx = 0.;
-            surf_ptr[i].Vy = 0.;
-            surf_ptr[i].Vn = 0.;
-        }
-        
+//       surf_ptr[i].Vt = 0.;        // four contravariant components of baryon diffusion vector
+//       surf_ptr[i].Vx = 0.;
+//       surf_ptr[i].Vy = 0.;
+//       surf_ptr[i].Vn = 0.;
     }else{
-
         surfdat >> dummy;
         surfdat >> dummy;
         surfdat >> dummy;
         surfdat >> dummy;
-
+        surfdat >> dummy;
     }
 
     // getting average thermodynamic quantities
